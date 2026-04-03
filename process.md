@@ -272,3 +272,14 @@ preprocessed/
 * 实体对齐
 * 三元组构建
 * 图数据库导入与可视化
+
+
+{
+  "sentence_id": "docid_s0001",
+  "doc_id": "所属文档ID",
+  "title": "文档标题",
+  "source_path": "原始路径",
+  "source_type": "html/pdf/text",
+  "sentence_index": 1,
+  "text": "句子内容"
+}

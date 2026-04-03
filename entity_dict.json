@@ -1,0 +1,524 @@
+{
+  "version": "1.0",
+  "description": "Seed entity dictionary for Alan Turing knowledge graph entity extraction.",
+  "entity_types": [
+    "Person",
+    "Organization",
+    "Place",
+    "Concept",
+    "Work",
+    "Award",
+    "Event",
+    "Field"
+  ],
+  "entities": [
+    {
+      "canonical_name": "Alan Turing",
+      "type": "Person",
+      "aliases": [
+        "Alan Turing",
+        "Alan Mathison Turing",
+        "A. Turing",
+        "Turing",
+        "艾伦·图灵",
+        "阿兰·图灵",
+        "艾伦·麦席森·图灵",
+        "阿兰·麦席森·图灵",
+        "图灵"
+      ]
+    },
+    {
+      "canonical_name": "Alonzo Church",
+      "type": "Person",
+      "aliases": [
+        "Alonzo Church",
+        "Church",
+        "阿隆佐·丘奇",
+        "丘奇"
+      ]
+    },
+    {
+      "canonical_name": "Joan Clarke",
+      "type": "Person",
+      "aliases": [
+        "Joan Clarke",
+        "Joan Elisabeth Clarke",
+        "琼·克拉克",
+        "乔安·克拉克"
+      ]
+    },
+    {
+      "canonical_name": "Benedict Cumberbatch",
+      "type": "Person",
+      "aliases": [
+        "Benedict Cumberbatch",
+        "Cumberbatch",
+        "本尼迪克特·康伯巴奇",
+        "卷福"
+      ]
+    },
+    {
+      "canonical_name": "Jack Copeland",
+      "type": "Person",
+      "aliases": [
+        "Jack Copeland",
+        "Prof Jack Copeland",
+        "Professor Jack Copeland",
+        "杰克·科普兰"
+      ]
+    },
+    {
+      "canonical_name": "S Barry Cooper",
+      "type": "Person",
+      "aliases": [
+        "S Barry Cooper",
+        "Barry Cooper",
+        "巴里·库珀"
+      ]
+    },
+    {
+      "canonical_name": "Andrew Hodges",
+      "type": "Person",
+      "aliases": [
+        "Andrew Hodges",
+        "安德鲁·霍奇斯"
+      ]
+    },
+    {
+      "canonical_name": "Gordon Brown",
+      "type": "Person",
+      "aliases": [
+        "Gordon Brown",
+        "戈登·布朗"
+      ]
+    },
+    {
+      "canonical_name": "Chris Grayling",
+      "type": "Person",
+      "aliases": [
+        "Chris Grayling",
+        "克里斯·格雷林"
+      ]
+    },
+    {
+      "canonical_name": "Dermot Turing",
+      "type": "Person",
+      "aliases": [
+        "Dermot Turing",
+        "德莫特·图灵"
+      ]
+    },
+    {
+      "canonical_name": "University of Cambridge",
+      "type": "Organization",
+      "aliases": [
+        "University of Cambridge",
+        "Cambridge University",
+        "剑桥大学"
+      ]
+    },
+    {
+      "canonical_name": "King's College, Cambridge",
+      "type": "Organization",
+      "aliases": [
+        "King's College, Cambridge",
+        "King's College Cambridge",
+        "King's College",
+        "剑桥大学国王学院",
+        "国王学院"
+      ]
+    },
+    {
+      "canonical_name": "Princeton University",
+      "type": "Organization",
+      "aliases": [
+        "Princeton University",
+        "普林斯顿大学"
+      ]
+    },
+    {
+      "canonical_name": "Institute for Advanced Study",
+      "type": "Organization",
+      "aliases": [
+        "Institute for Advanced Study",
+        "IAS",
+        "高级研究院",
+        "普林斯顿高级研究院"
+      ]
+    },
+    {
+      "canonical_name": "University of Manchester",
+      "type": "Organization",
+      "aliases": [
+        "University of Manchester",
+        "曼彻斯特大学"
+      ]
+    },
+    {
+      "canonical_name": "National Physical Laboratory",
+      "type": "Organization",
+      "aliases": [
+        "National Physical Laboratory",
+        "NPL",
+        "英国国家物理实验室",
+        "国家物理实验室"
+      ]
+    },
+    {
+      "canonical_name": "Government Code and Cypher School",
+      "type": "Organization",
+      "aliases": [
+        "Government Code and Cypher School",
+        "GC&CS",
+        "Government Code and Cypher School at Bletchley Park",
+        "英国政府密码学校",
+        "英国外交部通信处"
+      ]
+    },
+    {
+      "canonical_name": "Royal Society",
+      "type": "Organization",
+      "aliases": [
+        "Royal Society",
+        "The Royal Society",
+        "英国皇家学会"
+      ]
+    },
+    {
+      "canonical_name": "Association for Computing Machinery",
+      "type": "Organization",
+      "aliases": [
+        "Association for Computing Machinery",
+        "ACM",
+        "美国计算机协会"
+      ]
+    },
+    {
+      "canonical_name": "BBC",
+      "type": "Organization",
+      "aliases": [
+        "BBC",
+        "BBC News",
+        "英国广播公司"
+      ]
+    },
+    {
+      "canonical_name": "The Guardian",
+      "type": "Organization",
+      "aliases": [
+        "The Guardian",
+        "Guardian",
+        "卫报"
+      ]
+    },
+    {
+      "canonical_name": "London",
+      "type": "Place",
+      "aliases": [
+        "London",
+        "伦敦"
+      ]
+    },
+    {
+      "canonical_name": "Paddington",
+      "type": "Place",
+      "aliases": [
+        "Paddington",
+        "帕丁顿"
+      ]
+    },
+    {
+      "canonical_name": "Manchester",
+      "type": "Place",
+      "aliases": [
+        "Manchester",
+        "曼彻斯特"
+      ]
+    },
+    {
+      "canonical_name": "Cambridge",
+      "type": "Place",
+      "aliases": [
+        "Cambridge",
+        "剑桥"
+      ]
+    },
+    {
+      "canonical_name": "Princeton",
+      "type": "Place",
+      "aliases": [
+        "Princeton",
+        "普林斯顿"
+      ]
+    },
+    {
+      "canonical_name": "Bletchley Park",
+      "type": "Place",
+      "aliases": [
+        "Bletchley Park",
+        "布莱切利园",
+        "布莱切利公园",
+        "布莱切利庄园"
+      ]
+    },
+    {
+      "canonical_name": "Woking",
+      "type": "Place",
+      "aliases": [
+        "Woking",
+        "沃金"
+      ]
+    },
+    {
+      "canonical_name": "Teddington",
+      "type": "Place",
+      "aliases": [
+        "Teddington",
+        "泰丁顿"
+      ]
+    },
+    {
+      "canonical_name": "United Kingdom",
+      "type": "Place",
+      "aliases": [
+        "United Kingdom",
+        "UK",
+        "Britain",
+        "英国"
+      ]
+    },
+    {
+      "canonical_name": "Turing Machine",
+      "type": "Concept",
+      "aliases": [
+        "Turing Machine",
+        "Universal Turing Machine",
+        "图灵机",
+        "通用图灵机"
+      ]
+    },
+    {
+      "canonical_name": "Turing Test",
+      "type": "Concept",
+      "aliases": [
+        "Turing Test",
+        "Imitation Game",
+        "图灵测试",
+        "图灵试验",
+        "模仿游戏"
+      ]
+    },
+    {
+      "canonical_name": "Church-Turing Thesis",
+      "type": "Concept",
+      "aliases": [
+        "Church-Turing Thesis",
+        "Church-Turing thesis",
+        "Church-Turing Thesis",
+        "丘奇-图灵论题",
+        "丘奇-图灵论点"
+      ]
+    },
+    {
+      "canonical_name": "Enigma",
+      "type": "Concept",
+      "aliases": [
+        "Enigma",
+        "Enigma machine",
+        "恩尼格玛",
+        "恩尼格玛密码机"
+      ]
+    },
+    {
+      "canonical_name": "Bombe",
+      "type": "Concept",
+      "aliases": [
+        "Bombe",
+        "the Bombe",
+        "图灵炸弹",
+        "炸弹机"
+      ]
+    },
+    {
+      "canonical_name": "Automatic Computing Engine",
+      "type": "Concept",
+      "aliases": [
+        "Automatic Computing Engine",
+        "ACE",
+        "自动计算引擎"
+      ]
+    },
+    {
+      "canonical_name": "Manchester Mark 1",
+      "type": "Concept",
+      "aliases": [
+        "Manchester Mark 1",
+        "Manchester Mark I",
+        "Manchester computer",
+        "曼彻斯特一号"
+      ]
+    },
+    {
+      "canonical_name": "Artificial Intelligence",
+      "type": "Field",
+      "aliases": [
+        "Artificial Intelligence",
+        "AI",
+        "人工智能"
+      ]
+    },
+    {
+      "canonical_name": "Computer Science",
+      "type": "Field",
+      "aliases": [
+        "Computer Science",
+        "计算机科学"
+      ]
+    },
+    {
+      "canonical_name": "Mathematics",
+      "type": "Field",
+      "aliases": [
+        "Mathematics",
+        "Math",
+        "数学"
+      ]
+    },
+    {
+      "canonical_name": "Cryptography",
+      "type": "Field",
+      "aliases": [
+        "Cryptography",
+        "密码学",
+        "密码分析",
+        "密码破译"
+      ]
+    },
+    {
+      "canonical_name": "Mathematical Logic",
+      "type": "Field",
+      "aliases": [
+        "Mathematical Logic",
+        "Logic",
+        "数理逻辑",
+        "逻辑学"
+      ]
+    },
+    {
+      "canonical_name": "Theoretical Biology",
+      "type": "Field",
+      "aliases": [
+        "Theoretical Biology",
+        "理论生物学",
+        "数理生物学"
+      ]
+    },
+    {
+      "canonical_name": "On Computable Numbers, with an Application to the Entscheidungsproblem",
+      "type": "Work",
+      "aliases": [
+        "On Computable Numbers, with an Application to the Entscheidungsproblem",
+        "On Computable Numbers",
+        "论可计算的数及其在判定问题中的应用",
+        "论可计算的数及其在密码问题中的应用"
+      ]
+    },
+    {
+      "canonical_name": "Computing Machinery and Intelligence",
+      "type": "Work",
+      "aliases": [
+        "Computing Machinery and Intelligence",
+        "计算机器与智能",
+        "机器能思考吗",
+        "机器能够思维吗"
+      ]
+    },
+    {
+      "canonical_name": "Intelligent Machinery",
+      "type": "Work",
+      "aliases": [
+        "Intelligent Machinery",
+        "智能机器"
+      ]
+    },
+    {
+      "canonical_name": "The Chemical Basis of Morphogenesis",
+      "type": "Work",
+      "aliases": [
+        "The Chemical Basis of Morphogenesis",
+        "形态发生的化学基础"
+      ]
+    },
+    {
+      "canonical_name": "Alan Turing: The Enigma",
+      "type": "Work",
+      "aliases": [
+        "Alan Turing: The Enigma",
+        "艾伦·图灵传",
+        "图灵传"
+      ]
+    },
+    {
+      "canonical_name": "The Imitation Game",
+      "type": "Work",
+      "aliases": [
+        "The Imitation Game",
+        "模仿游戏"
+      ]
+    },
+    {
+      "canonical_name": "Turing Award",
+      "type": "Award",
+      "aliases": [
+        "Turing Award",
+        "A. M. Turing Award",
+        "图灵奖"
+      ]
+    },
+    {
+      "canonical_name": "Order of the British Empire",
+      "type": "Award",
+      "aliases": [
+        "Order of the British Empire",
+        "OBE",
+        "大英帝国勋章"
+      ]
+    },
+    {
+      "canonical_name": "Smith's Prize",
+      "type": "Award",
+      "aliases": [
+        "Smith's Prize",
+        "Smith Prize",
+        "史密斯数学奖"
+      ]
+    },
+    {
+      "canonical_name": "World War II",
+      "type": "Event",
+      "aliases": [
+        "World War II",
+        "Second World War",
+        "WWII",
+        "二战",
+        "第二次世界大战"
+      ]
+    },
+    {
+      "canonical_name": "Battle of the Atlantic",
+      "type": "Event",
+      "aliases": [
+        "Battle of the Atlantic",
+        "大西洋战役"
+      ]
+    },
+    {
+      "canonical_name": "Turing Law",
+      "type": "Event",
+      "aliases": [
+        "Turing Law",
+        "图灵法案"
+      ]
+    }
+  ]
+}
