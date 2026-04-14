@@ -2,3 +2,5 @@ beautifulsoup4>=4.12
 PyYAML>=6.0
 pypdf>=5.0
 pytest>=8.0
+spacy==3.8.7
+en-core-web-sm==3.8.0

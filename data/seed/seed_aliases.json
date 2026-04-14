@@ -1,0 +1,98 @@
+[
+  {
+    "alias_id": "alias_000001",
+    "entity_id": "ent_person_0001",
+    "alias": "Alan Turing",
+    "alias_type": "short_name",
+    "language": "en",
+    "confidence": 1.0
+  },
+  {
+    "alias_id": "alias_000002",
+    "entity_id": "ent_person_0001",
+    "alias": "A. M. Turing",
+    "alias_type": "abbreviation",
+    "language": "en",
+    "confidence": 0.98
+  },
+  {
+    "alias_id": "alias_000003",
+    "entity_id": "ent_person_0001",
+    "alias": "Turing",
+    "alias_type": "surface_form",
+    "language": "en",
+    "confidence": 0.7
+  },
+  {
+    "alias_id": "alias_000004",
+    "entity_id": "ent_org_0001",
+    "alias": "King's College",
+    "alias_type": "short_name",
+    "language": "en",
+    "confidence": 0.92
+  },
+  {
+    "alias_id": "alias_000005",
+    "entity_id": "ent_org_0002",
+    "alias": "Princeton",
+    "alias_type": "short_name",
+    "language": "en",
+    "confidence": 0.8
+  },
+  {
+    "alias_id": "alias_000006",
+    "entity_id": "ent_org_0003",
+    "alias": "Bletchley Park",
+    "alias_type": "surface_form",
+    "language": "en",
+    "confidence": 1.0
+  },
+  {
+    "alias_id": "alias_000007",
+    "entity_id": "ent_org_0004",
+    "alias": "Manchester",
+    "alias_type": "short_name",
+    "language": "en",
+    "confidence": 0.75
+  },
+  {
+    "alias_id": "alias_000008",
+    "entity_id": "ent_org_0005",
+    "alias": "NPL",
+    "alias_type": "abbreviation",
+    "language": "en",
+    "confidence": 0.95
+  },
+  {
+    "alias_id": "alias_000009",
+    "entity_id": "ent_work_0001",
+    "alias": "Computing Machinery and Intelligence",
+    "alias_type": "surface_form",
+    "language": "en",
+    "confidence": 1.0
+  },
+  {
+    "alias_id": "alias_000010",
+    "entity_id": "ent_work_0002",
+    "alias": "The Chemical Basis of Morphogenesis",
+    "alias_type": "surface_form",
+    "language": "en",
+    "confidence": 1.0
+  },
+  {
+    "alias_id": "alias_000011",
+    "entity_id": "ent_concept_0001",
+    "alias": "universal Turing machine",
+    "alias_type": "surface_form",
+    "language": "en",
+    "confidence": 0.95
+  },
+  {
+    "alias_id": "alias_000012",
+    "entity_id": "ent_concept_0002",
+    "alias": "Church-Turing thesis",
+    "alias_type": "surface_form",
+    "language": "en",
+    "confidence": 1.0
+  }
+]

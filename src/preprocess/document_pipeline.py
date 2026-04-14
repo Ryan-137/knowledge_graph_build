@@ -27,7 +27,7 @@ from configs.rules.document import (
     PROTECTED_CONTENT_TAGS,
     TAIL_SECTION_TITLES,
 )
-from src.preprocess.shared import utc_now_iso, write_json
+from src.preprocess.shared import utc_now_iso, write_json, write_jsonl
 from src.schema.document import SourceRecord
 
 
@@ -391,7 +391,7 @@ def run_document_preprocess(
 ) -> tuple[int, int]:
     documents, errors = build_documents(repo_root=repo_root, config_path=config_path)
 
-    write_json(output_path, documents)
+    write_jsonl(output_path, documents)
     write_json(
         report_path,
         {

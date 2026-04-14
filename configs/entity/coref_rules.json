@@ -1,0 +1,18 @@
+{
+  "person_pronouns": [
+    "he",
+    "his",
+    "him"
+  ],
+  "non_person_pronouns": [
+    "it",
+    "its"
+  ],
+  "max_sentence_gap": 2,
+  "confidence_by_sentence_gap": {
+    "0": 0.9,
+    "1": 0.8,
+    "2": 0.7
+  },
+  "fallback_confidence": 0.7
+}

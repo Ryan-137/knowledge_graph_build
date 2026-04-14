@@ -1,0 +1,240 @@
+{
+  "entities": [
+    {
+      "entity_id": "ent_person_0001",
+      "entity_type": "Person",
+      "canonical_name": "Alan Mathison Turing",
+      "description": "British mathematician and computer scientist",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_org_0001",
+      "entity_type": "Organization",
+      "canonical_name": "King's College Cambridge",
+      "description": "College of the University of Cambridge",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_org_0002",
+      "entity_type": "Organization",
+      "canonical_name": "Princeton University",
+      "description": "Research university in Princeton",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_org_0003",
+      "entity_type": "Organization",
+      "canonical_name": "Bletchley Park",
+      "description": "British wartime codebreaking center",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_org_0004",
+      "entity_type": "Organization",
+      "canonical_name": "University of Manchester",
+      "description": "University associated with Turing's postwar work",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_org_0005",
+      "entity_type": "Organization",
+      "canonical_name": "National Physical Laboratory",
+      "description": "UK national laboratory where Turing worked on ACE",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_work_0001",
+      "entity_type": "Work",
+      "canonical_name": "Computing Machinery and Intelligence",
+      "description": "Turing's 1950 paper about machine intelligence",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_work_0002",
+      "entity_type": "Work",
+      "canonical_name": "The Chemical Basis of Morphogenesis",
+      "description": "Turing's 1952 paper on morphogenesis",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_concept_0001",
+      "entity_type": "Concept",
+      "canonical_name": "Turing machine",
+      "description": "Abstract model of computation introduced by Turing",
+      "source": "manual_seed",
+      "status": "confirmed"
+    },
+    {
+      "entity_id": "ent_concept_0002",
+      "entity_type": "Concept",
+      "canonical_name": "Church-Turing thesis",
+      "description": "Thesis about the limits of effective computability",
+      "source": "manual_seed",
+      "status": "confirmed"
+    }
+  ],
+  "aliases": [
+    {
+      "alias_id": "alias_000001",
+      "entity_id": "ent_person_0001",
+      "alias": "Alan Turing",
+      "alias_type": "short_name",
+      "language": "en",
+      "confidence": 1.0
+    },
+    {
+      "alias_id": "alias_000002",
+      "entity_id": "ent_person_0001",
+      "alias": "A. M. Turing",
+      "alias_type": "abbreviation",
+      "language": "en",
+      "confidence": 0.98
+    },
+    {
+      "alias_id": "alias_000003",
+      "entity_id": "ent_person_0001",
+      "alias": "Turing",
+      "alias_type": "surface_form",
+      "language": "en",
+      "confidence": 0.7
+    },
+    {
+      "alias_id": "alias_000004",
+      "entity_id": "ent_org_0001",
+      "alias": "King's College",
+      "alias_type": "short_name",
+      "language": "en",
+      "confidence": 0.92
+    },
+    {
+      "alias_id": "alias_000005",
+      "entity_id": "ent_org_0002",
+      "alias": "Princeton",
+      "alias_type": "short_name",
+      "language": "en",
+      "confidence": 0.8
+    },
+    {
+      "alias_id": "alias_000006",
+      "entity_id": "ent_org_0003",
+      "alias": "Bletchley Park",
+      "alias_type": "surface_form",
+      "language": "en",
+      "confidence": 1.0
+    },
+    {
+      "alias_id": "alias_000007",
+      "entity_id": "ent_org_0004",
+      "alias": "Manchester",
+      "alias_type": "short_name",
+      "language": "en",
+      "confidence": 0.75
+    },
+    {
+      "alias_id": "alias_000008",
+      "entity_id": "ent_org_0005",
+      "alias": "NPL",
+      "alias_type": "abbreviation",
+      "language": "en",
+      "confidence": 0.95
+    },
+    {
+      "alias_id": "alias_000009",
+      "entity_id": "ent_work_0001",
+      "alias": "Computing Machinery and Intelligence",
+      "alias_type": "surface_form",
+      "language": "en",
+      "confidence": 1.0
+    },
+    {
+      "alias_id": "alias_000010",
+      "entity_id": "ent_work_0002",
+      "alias": "The Chemical Basis of Morphogenesis",
+      "alias_type": "surface_form",
+      "language": "en",
+      "confidence": 1.0
+    },
+    {
+      "alias_id": "alias_000011",
+      "entity_id": "ent_concept_0001",
+      "alias": "universal Turing machine",
+      "alias_type": "surface_form",
+      "language": "en",
+      "confidence": 0.95
+    },
+    {
+      "alias_id": "alias_000012",
+      "entity_id": "ent_concept_0002",
+      "alias": "Church-Turing thesis",
+      "alias_type": "surface_form",
+      "language": "en",
+      "confidence": 1.0
+    }
+  ],
+  "facts": [
+    {
+      "seed_fact_id": "sfact_000001",
+      "head_entity_id": "ent_person_0001",
+      "relation_type": "STUDIED_AT",
+      "tail_entity_id": "ent_org_0001",
+      "confidence": 0.99,
+      "evidence_note": "manual curated from university archive"
+    },
+    {
+      "seed_fact_id": "sfact_000002",
+      "head_entity_id": "ent_person_0001",
+      "relation_type": "STUDIED_AT",
+      "tail_entity_id": "ent_org_0002",
+      "confidence": 0.99,
+      "evidence_note": "manual curated from university archive"
+    },
+    {
+      "seed_fact_id": "sfact_000003",
+      "head_entity_id": "ent_person_0001",
+      "relation_type": "WORKED_AT",
+      "tail_entity_id": "ent_org_0003",
+      "confidence": 0.99,
+      "evidence_note": "manual curated from wartime biography"
+    },
+    {
+      "seed_fact_id": "sfact_000004",
+      "head_entity_id": "ent_person_0001",
+      "relation_type": "WORKED_AT",
+      "tail_entity_id": "ent_org_0004",
+      "confidence": 0.99,
+      "evidence_note": "manual curated from Manchester source"
+    },
+    {
+      "seed_fact_id": "sfact_000005",
+      "head_entity_id": "ent_person_0001",
+      "relation_type": "AUTHORED",
+      "tail_entity_id": "ent_work_0001",
+      "confidence": 0.99,
+      "evidence_note": "manual curated from 1950 paper"
+    },
+    {
+      "seed_fact_id": "sfact_000006",
+      "head_entity_id": "ent_person_0001",
+      "relation_type": "AUTHORED",
+      "tail_entity_id": "ent_work_0002",
+      "confidence": 0.99,
+      "evidence_note": "manual curated from 1952 paper"
+    },
+    {
+      "seed_fact_id": "sfact_000007",
+      "head_entity_id": "ent_person_0001",
+      "relation_type": "PROPOSED",
+      "tail_entity_id": "ent_concept_0001",
+      "confidence": 0.99,
+      "evidence_note": "manual curated from historical overview"
+    }
+  ]
+}

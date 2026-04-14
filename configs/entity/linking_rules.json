@@ -1,0 +1,9 @@
+{
+  "seed_match_method": "alias_exact_match",
+  "tie_needs_review": true,
+  "provisional_entity_prefix": "ent_candidate_",
+  "provisional_source": "ner_unlinked",
+  "provisional_status": "candidate",
+  "provisional_method": "new_entity_from_mention",
+  "provisional_needs_review": true
+}

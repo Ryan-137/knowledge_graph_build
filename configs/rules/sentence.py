@@ -49,6 +49,7 @@ ABBREVIATIONS = {
     "cf",
     "ca",
     "c",
+    "ph.d",
 }
 
 SECTION_PREFIX_PATTERN = re.compile(r"^\s*(?:\d+(?:\.\d+)*\.?)\s+")

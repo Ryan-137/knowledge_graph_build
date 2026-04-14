@@ -1,0 +1,19 @@
+{
+  "label_to_entity_type": {
+    "PERSON": "Person",
+    "ORG": "Organization",
+    "GPE": "Place",
+    "LOC": "Place",
+    "FAC": "Place",
+    "WORK_OF_ART": "Work"
+  },
+  "label_confidence": {
+    "PERSON": 0.86,
+    "ORG": 0.82,
+    "GPE": 0.8,
+    "LOC": 0.78,
+    "FAC": 0.76,
+    "WORK_OF_ART": 0.72
+  },
+  "default_confidence": 0.7
+}

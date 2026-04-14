@@ -1,0 +1,58 @@
+[
+  {
+    "seed_fact_id": "sfact_000001",
+    "head_entity_id": "ent_person_0001",
+    "relation_type": "STUDIED_AT",
+    "tail_entity_id": "ent_org_0001",
+    "confidence": 0.99,
+    "evidence_note": "manual curated from university archive"
+  },
+  {
+    "seed_fact_id": "sfact_000002",
+    "head_entity_id": "ent_person_0001",
+    "relation_type": "STUDIED_AT",
+    "tail_entity_id": "ent_org_0002",
+    "confidence": 0.99,
+    "evidence_note": "manual curated from university archive"
+  },
+  {
+    "seed_fact_id": "sfact_000003",
+    "head_entity_id": "ent_person_0001",
+    "relation_type": "WORKED_AT",
+    "tail_entity_id": "ent_org_0003",
+    "confidence": 0.99,
+    "evidence_note": "manual curated from wartime biography"
+  },
+  {
+    "seed_fact_id": "sfact_000004",
+    "head_entity_id": "ent_person_0001",
+    "relation_type": "WORKED_AT",
+    "tail_entity_id": "ent_org_0004",
+    "confidence": 0.95,
+    "evidence_note": "manual curated from Manchester source"
+  },
+  {
+    "seed_fact_id": "sfact_000005",
+    "head_entity_id": "ent_person_0001",
+    "relation_type": "AUTHORED",
+    "tail_entity_id": "ent_work_0001",
+    "confidence": 0.99,
+    "evidence_note": "manual curated from 1950 paper"
+  },
+  {
+    "seed_fact_id": "sfact_000006",
+    "head_entity_id": "ent_person_0001",
+    "relation_type": "AUTHORED",
+    "tail_entity_id": "ent_work_0002",
+    "confidence": 0.99,
+    "evidence_note": "manual curated from 1952 paper"
+  },
+  {
+    "seed_fact_id": "sfact_000007",
+    "head_entity_id": "ent_person_0001",
+    "relation_type": "PROPOSED",
+    "tail_entity_id": "ent_concept_0001",
+    "confidence": 0.98,
+    "evidence_note": "manual curated from historical overview"
+  }
+]

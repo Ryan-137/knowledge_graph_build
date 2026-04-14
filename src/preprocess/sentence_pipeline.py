@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import re
 from dataclasses import asdict
 from dataclasses import dataclass
@@ -15,7 +14,7 @@ from configs.rules.sentence import (
     SECTION_PREFIX_PATTERN,
     TOC_TOKEN_PATTERN,
 )
-from src.preprocess.shared import utc_now_iso, write_json
+from src.preprocess.shared import read_jsonl, utc_now_iso, write_json, write_jsonl
 from src.schema.document import DocumentRecord
 from src.schema.sentence import SentenceRecord, TimeMentionRecord
 
@@ -42,7 +41,7 @@ class NormalizedSegment:
 
 
 def load_documents(documents_path: Path) -> list[DocumentRecord]:
-    payload = json.loads(documents_path.read_text(encoding="utf-8"))
+    payload = read_jsonl(documents_path)
     documents: list[DocumentRecord] = []
     for item in payload:
         documents.append(
@@ -125,6 +124,38 @@ def _split_block_into_segments(block_text: str, block_start: int) -> list[tuple[
     if average_length > 80:
         return [(block_text, block_start, block_start + len(block_text))]
 
+    # PDF 常把“章节标题 + 正文首句”压在同一个 block 里。
+    # 这里先把前导标题行剥离出来，避免后面把标题和正文误拼成一条句子。
+    leading_heading_count = 0
+    has_wrapped_prefix = False
+    for index, (line_text, _, relative_end) in enumerate(meaningful_lines):
+        if not _looks_like_heading_block(line_text):
+            break
+        next_line_text = meaningful_lines[index + 1][0] if index + 1 < len(meaningful_lines) else ""
+        separator_text = (
+            block_text[relative_end : meaningful_lines[index + 1][1]]
+            if index + 1 < len(meaningful_lines)
+            else ""
+        )
+        if _looks_like_wrapped_prefix(line_text, next_line_text, separator_text):
+            has_wrapped_prefix = True
+            break
+        leading_heading_count += 1
+
+    if has_wrapped_prefix:
+        return [(block_text, block_start, block_start + len(block_text))]
+
+    if 0 < leading_heading_count < len(meaningful_lines):
+        segments: list[tuple[str, int, int]] = []
+        for line_text, relative_start, relative_end in meaningful_lines[:leading_heading_count]:
+            absolute_start = block_start + relative_start
+            segments.append((line_text, absolute_start, block_start + relative_end))
+
+        body_start = meaningful_lines[leading_heading_count][1]
+        body_end = meaningful_lines[-1][2]
+        segments.append((block_text[body_start:body_end], block_start + body_start, block_start + body_end))
+        return segments
+
     segments: list[tuple[str, int, int]] = []
     for line_text, relative_start, relative_end in meaningful_lines:
         absolute_start = block_start + relative_start
@@ -150,6 +181,21 @@ def _looks_like_heading_block(block_text: str) -> bool:
 
     # 标题通常以短语形态出现，这里故意放宽判断，宁可少吃正文句子。
     return True
+
+
+def _looks_like_wrapped_prefix(line_text: str, next_line_text: str, separator_text: str) -> bool:
+    """
+    识别被 PDF 强行断开的句首片段，例如 “Alan\\n Mathison ...”。
+
+    这类文本在视觉上像标题 + 正文，但其实只是一个句子的前缀，不能被当成 heading 拆开。
+    """
+
+    if not next_line_text or "\n" not in separator_text:
+        return False
+
+    words = re.findall(r"[A-Za-z0-9\u4e00-\u9fff&+'’-]+", line_text.strip())
+    # 只有换行本身说明是正常新行；换行后仍残留空白，通常是 PDF 强制折行。
+    return len(words) == 1 and bool(separator_text.replace("\n", ""))
 
 
 def _collapse_whitespace_with_offsets(text: str, absolute_start: int) -> NormalizedSegment:
@@ -247,8 +293,14 @@ def _normalize_sentence_text(text: str) -> str:
     text = LEADING_REFERENCE_PATTERN.sub("", text)
     text = TRAILING_REFERENCE_PATTERN.sub(r"\1", text)
     text = re.sub(r"\s+", " ", text)
-    text = re.sub(r"([\"'“‘([{])\s+", r"\1", text)
-    text = re.sub(r"\s+([,.;:!?%)\]}\"'”’])", r"\1", text)
+    # 一些 PDF 提取会把整段引文前后的空格吃掉。
+    # 这里按“完整引号块”补空格，避免把 opening / closing quote 分别修坏。
+    text = re.sub(r"(?<=\w)(\"[^\"]+\")", r" \1", text)
+    text = re.sub(r"(\"[^\"]+\")(?=\w)", r"\1 ", text)
+    text = re.sub(r"([,.;:!?])(\"[^\"]+\")", r"\1 \2", text)
+    text = re.sub(r"([“‘([{])\s+", r"\1", text)
+    text = re.sub(r"\s+([,.;:!?%)\]}”’])", r"\1", text)
+    text = re.sub(r"\s+([\"'])(?=\s|$|[,.;:!?%)\]}])", r"\1", text)
 
     tokens = text.split(" ")
     merged_tokens: list[str] = []
@@ -378,6 +430,17 @@ def _is_discardable_sentence(text: str) -> bool:
 
 
 def _split_segment_into_sentences(segment_text: str, segment_start: int) -> list[tuple[str, int, int]]:
+    if "\n" in segment_text:
+        line_segments = _split_block_into_segments(segment_text, segment_start)
+        should_split_lines = len(line_segments) > 1 and any(
+            _looks_like_heading_block(line_text) for line_text, _, _ in line_segments[:-1]
+        )
+        if should_split_lines:
+            sentences: list[tuple[str, int, int]] = []
+            for line_text, line_start, _ in line_segments:
+                sentences.extend(_split_segment_into_sentences(line_text, line_start))
+            return sentences
+
     normalized_segment = _collapse_whitespace_with_offsets(segment_text, segment_start)
     normalized_text = normalized_segment.text
     offsets = normalized_segment.offsets
@@ -423,6 +486,8 @@ def _split_segment_into_sentences(segment_text: str, segment_start: int) -> list
             sentence_text = _normalize_sentence_text(normalized_text[sentence_start : tail_end + 1])
             absolute_start = offsets[sentence_start]
             absolute_end = offsets[tail_end] + 1
+            if _looks_like_heading_block(sentence_text):
+                sentence_text = _complete_heading_sentence(sentence_text)
             if not _is_discardable_sentence(sentence_text):
                 sentences.append((sentence_text, absolute_start, absolute_end))
 
@@ -690,7 +755,7 @@ def run_sentence_preprocess(
     strict: bool = False,
 ) -> tuple[int, int]:
     sentences, doc_sentence_counts, errors = build_sentences(documents_path=documents_path)
-    write_json(output_path, [asdict(sentence) for sentence in sentences])
+    write_jsonl(output_path, [asdict(sentence) for sentence in sentences])
     write_json(
         report_path,
         {

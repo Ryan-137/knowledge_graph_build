@@ -1,0 +1,10 @@
+{
+  "source_priority": {
+    "dictionary": 2,
+    "ner": 1
+  },
+  "multi_source_confidence_bonus": 0.03,
+  "max_confidence": 0.99,
+  "conflict_review_status": "needs_review",
+  "dictionary_ner_extractor_name": "dictionary+ner"
+}

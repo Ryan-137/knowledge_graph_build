@@ -1,0 +1,82 @@
+[
+  {
+    "entity_id": "ent_person_0001",
+    "entity_type": "Person",
+    "canonical_name": "Alan Mathison Turing",
+    "description": "British mathematician and computer scientist",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_org_0001",
+    "entity_type": "Organization",
+    "canonical_name": "King's College Cambridge",
+    "description": "College of the University of Cambridge",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_org_0002",
+    "entity_type": "Organization",
+    "canonical_name": "Princeton University",
+    "description": "Research university in Princeton",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_org_0003",
+    "entity_type": "Organization",
+    "canonical_name": "Bletchley Park",
+    "description": "British wartime codebreaking center",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_org_0004",
+    "entity_type": "Organization",
+    "canonical_name": "University of Manchester",
+    "description": "University associated with Turing's postwar work",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_org_0005",
+    "entity_type": "Organization",
+    "canonical_name": "National Physical Laboratory",
+    "description": "UK national laboratory where Turing worked on ACE",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_work_0001",
+    "entity_type": "Work",
+    "canonical_name": "Computing Machinery and Intelligence",
+    "description": "Turing's 1950 paper about machine intelligence",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_work_0002",
+    "entity_type": "Work",
+    "canonical_name": "The Chemical Basis of Morphogenesis",
+    "description": "Turing's 1952 paper on morphogenesis",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_concept_0001",
+    "entity_type": "Concept",
+    "canonical_name": "Turing machine",
+    "description": "Abstract model of computation introduced by Turing",
+    "source": "manual_seed",
+    "status": "confirmed"
+  },
+  {
+    "entity_id": "ent_concept_0002",
+    "entity_type": "Concept",
+    "canonical_name": "Church-Turing thesis",
+    "description": "Thesis about the limits of effective computability",
+    "source": "manual_seed",
+    "status": "confirmed"
+  }
+]
