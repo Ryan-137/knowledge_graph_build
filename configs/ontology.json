@@ -1,0 +1,173 @@
+{
+  "version": "1.0",
+  "domain": "Alan Turing Knowledge Graph",
+  "principles": {
+    "mention_boundary": "本体只定义规范实体、最终关系和事件类型，不直接定义 mention 层输出。",
+    "event_policy": "带明确时间过程的事实后续优先抽成事件，同时可以融合出简化关系事实。"
+  },
+  "classes": [
+    {
+      "name": "Entity",
+      "parent": null,
+      "attributes": ["entity_id", "canonical_name", "aliases", "description"]
+    },
+    {
+      "name": "Person",
+      "parent": "Entity",
+      "attributes": ["birth_date", "death_date"]
+    },
+    {
+      "name": "Organization",
+      "parent": "Entity",
+      "attributes": ["org_type"]
+    },
+    {
+      "name": "Place",
+      "parent": "Entity",
+      "attributes": ["place_type"]
+    },
+    {
+      "name": "Work",
+      "parent": "Entity",
+      "attributes": ["publication_year", "work_type"]
+    },
+    {
+      "name": "Concept",
+      "parent": "Entity",
+      "attributes": []
+    },
+    {
+      "name": "Event",
+      "parent": "Entity",
+      "attributes": ["event_id", "event_type", "time_text", "start_time", "end_time"]
+    },
+    {
+      "name": "BirthEvent",
+      "parent": "Event",
+      "attributes": []
+    },
+    {
+      "name": "EducationEvent",
+      "parent": "Event",
+      "attributes": []
+    },
+    {
+      "name": "EmploymentEvent",
+      "parent": "Event",
+      "attributes": []
+    },
+    {
+      "name": "PublicationEvent",
+      "parent": "Event",
+      "attributes": []
+    },
+    {
+      "name": "DeathEvent",
+      "parent": "Event",
+      "attributes": []
+    }
+  ],
+  "relations": [
+    {
+      "name": "BORN_IN",
+      "domain": "Person",
+      "range": "Place",
+      "event_type": "BirthEvent"
+    },
+    {
+      "name": "DIED_IN",
+      "domain": "Person",
+      "range": "Place",
+      "event_type": "DeathEvent"
+    },
+    {
+      "name": "STUDIED_AT",
+      "domain": "Person",
+      "range": "Organization",
+      "event_type": "EducationEvent"
+    },
+    {
+      "name": "WORKED_AT",
+      "domain": "Person",
+      "range": "Organization",
+      "event_type": "EmploymentEvent"
+    },
+    {
+      "name": "AUTHORED",
+      "domain": "Person",
+      "range": "Work",
+      "event_type": "PublicationEvent"
+    },
+    {
+      "name": "PROPOSED",
+      "domain": "Person",
+      "range": "Concept",
+      "event_type": null
+    },
+    {
+      "name": "RELATED_TO",
+      "domain": "Work",
+      "range": "Concept",
+      "event_type": null
+    }
+  ],
+  "event_types": [
+    {
+      "name": "BirthEvent",
+      "participants": ["Person", "Place"],
+      "derived_relation": "BORN_IN"
+    },
+    {
+      "name": "EducationEvent",
+      "participants": ["Person", "Organization"],
+      "derived_relation": "STUDIED_AT"
+    },
+    {
+      "name": "EmploymentEvent",
+      "participants": ["Person", "Organization"],
+      "derived_relation": "WORKED_AT"
+    },
+    {
+      "name": "PublicationEvent",
+      "participants": ["Person", "Work"],
+      "derived_relation": "AUTHORED"
+    },
+    {
+      "name": "DeathEvent",
+      "participants": ["Person", "Place"],
+      "derived_relation": "DIED_IN"
+    }
+  ],
+  "constraints": [
+    {
+      "type": "required_attribute",
+      "class": "Person",
+      "attribute": "canonical_name"
+    },
+    {
+      "type": "required_attribute",
+      "class": "Organization",
+      "attribute": "canonical_name"
+    },
+    {
+      "type": "required_attribute",
+      "class": "Place",
+      "attribute": "canonical_name"
+    },
+    {
+      "type": "required_attribute",
+      "class": "Work",
+      "attribute": "canonical_name"
+    },
+    {
+      "type": "required_attribute",
+      "class": "Event",
+      "attribute": "event_id"
+    },
+    {
+      "type": "required_attribute",
+      "class": "Event",
+      "attribute": "event_type"
+    }
+  ]
+}

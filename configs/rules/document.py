@@ -25,6 +25,7 @@ NOISE_KEYWORDS = {
     "menu",
     "footer",
     "header",
+    "toc",
     "breadcrumb",
     "cookie",
     "consent",
@@ -45,6 +46,15 @@ NOISE_KEYWORDS = {
     "pagination",
     "popup",
     "modal",
+    "reference",
+    "references",
+    "reflist",
+    "citation",
+    "footnote",
+    "catlinks",
+    "infobox",
+    "editsection",
+    "authority-control",
 }
 
 CONTENT_SELECTORS = (
@@ -65,5 +75,35 @@ CONTENT_SELECTORS = (
     "#main",
 )
 
+NOISE_SELECTORS = (
+    ".reference",
+    ".references",
+    ".reflist",
+    ".mw-references-wrap",
+    ".mw-editsection",
+    ".toc",
+    "#toc",
+    ".catlinks",
+    ".navbox",
+    ".vertical-navbox",
+    ".sidebar",
+    ".infobox",
+    ".metadata",
+    ".hatnote",
+    ".shortdescription",
+    ".authority-control",
+    ".noprint",
+)
+
 BLOCK_TAGS = ("h1", "h2", "h3", "p", "li", "blockquote")
 PROTECTED_CONTENT_TAGS = {"html", "body", "main", "article"}
+
+TAIL_SECTION_TITLES = {
+    "references",
+    "footnotes",
+    "citations",
+    "bibliography",
+    "further reading",
+    "external links",
+    "works cited",
+}

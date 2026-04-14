@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-04-14T04:09:05.812370+00:00",
+  "generated_at": "2026-04-14T07:28:55.318917+00:00",
   "document_count": 11,
-  "sentence_count": 2484,
+  "sentence_count": 1806,
   "error_count": 0,
   "doc_sentence_counts": [
     {
@@ -37,7 +37,7 @@
     {
       "doc_id": "doc_0007",
       "source_id": "src_f07_morphogenesis_royal_society",
-      "sentence_count": 27
+      "sentence_count": 45
     },
     {
       "doc_id": "doc_0008",
@@ -47,7 +47,7 @@
     {
       "doc_id": "doc_0009",
       "source_id": "src_s01_wikipedia",
-      "sentence_count": 1063
+      "sentence_count": 378
     },
     {
       "doc_id": "doc_0010",
@@ -57,7 +57,7 @@
     {
       "doc_id": "doc_0011",
       "source_id": "src_s03_science_industry_museum",
-      "sentence_count": 134
+      "sentence_count": 123
     }
   ],
   "errors": []

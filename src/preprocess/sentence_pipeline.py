@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import asdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -15,13 +16,21 @@ from configs.rules.sentence import (
     TOC_TOKEN_PATTERN,
 )
 from src.preprocess.shared import utc_now_iso, write_json
-from src.schema.sentence import DocumentRecord
+from src.schema.document import DocumentRecord
+from src.schema.sentence import SentenceRecord, TimeMentionRecord
 
 
 TRAILING_CLOSERS = "\"'”’)]}"
 COMMON_SINGLE_LETTER_WORDS = {"a", "A", "i", "I"}
 COMMON_SINGLE_LETTER_SYMBOLS = {"A", "B", "C", "I", "Q", "X", "Y"}
 SENTENCE_ENDING_PATTERN = re.compile(r"[.!?;:。！？；：][\"'”’)\]}]*$")
+PURE_REFERENCE_SENTENCE_PATTERN = re.compile(r"^(?:\[\s*\d+(?:\s*[-,–]\s*\d+)?\s*\]\s*)+$")
+LEADING_REFERENCE_PATTERN = re.compile(
+    r"^(?:\[\s*\d+(?:\s*[-–]\s*\d+)?\s*\]\s*)+(?=(?:[A-Z\"'“‘(]|\Z))"
+)
+TRAILING_REFERENCE_PATTERN = re.compile(
+    r"([,.;:!?%)\]}\"'”’])\s*(?:\[\s*\d+(?:\s*[-–]\s*\d+)?\s*\]\s*)+(?=(?:\s|$))"
+)
 
 
 @dataclass(frozen=True)
@@ -235,6 +244,8 @@ def _is_sentence_boundary(text: str, index: int) -> bool:
 
 def _normalize_sentence_text(text: str) -> str:
     text = SECTION_PREFIX_PATTERN.sub("", text).strip()
+    text = LEADING_REFERENCE_PATTERN.sub("", text)
+    text = TRAILING_REFERENCE_PATTERN.sub(r"\1", text)
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"([\"'“‘([{])\s+", r"\1", text)
     text = re.sub(r"\s+([,.;:!?%)\]}\"'”’])", r"\1", text)
@@ -331,6 +342,9 @@ def _is_discardable_sentence(text: str) -> bool:
     if not text or len(text) < 4:
         return True
 
+    if PURE_REFERENCE_SENTENCE_PATTERN.fullmatch(text):
+        return True
+
     if not re.search(r"[A-Za-z0-9\u4e00-\u9fff]", text):
         return True
 
@@ -423,7 +437,7 @@ def _expand_two_digit_year(start_year: str, end_year: str) -> str:
 
 
 def _append_time_mention(
-    mentions: list[dict[str, Any]],
+    mentions: list[TimeMentionRecord],
     occupied: list[tuple[int, int]],
     start: int,
     end: int,
@@ -437,18 +451,18 @@ def _append_time_mention(
 
     occupied.append((start, end))
     mentions.append(
-        {
-            "text": text,
-            "normalized": normalized,
-            "type": mention_type,
-            "offset_start": start,
-            "offset_end": end,
-        }
+        TimeMentionRecord(
+            text=text,
+            normalized=normalized,
+            type=mention_type,
+            offset_start=start,
+            offset_end=end,
+        )
     )
 
 
-def _extract_time_mentions(sentence_text: str) -> list[dict[str, Any]]:
-    mentions: list[dict[str, Any]] = []
+def _extract_time_mentions(sentence_text: str) -> list[TimeMentionRecord]:
+    mentions: list[TimeMentionRecord] = []
     occupied: list[tuple[int, int]] = []
 
     for match in re.finditer(
@@ -563,9 +577,11 @@ def _extract_time_mentions(sentence_text: str) -> list[dict[str, Any]]:
     return mentions
 
 
-def build_sentences(documents_path: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+def build_sentences(
+    documents_path: Path,
+) -> tuple[list[SentenceRecord], list[dict[str, Any]], list[dict[str, Any]]]:
     documents = load_documents(documents_path)
-    sentences: list[dict[str, Any]] = []
+    sentences: list[SentenceRecord] = []
     errors: list[dict[str, Any]] = []
     doc_sentence_counts: list[dict[str, Any]] = []
     sentence_counter = 1
@@ -600,17 +616,17 @@ def build_sentences(documents_path: Path) -> tuple[list[dict[str, Any]], list[di
                     if sentence_text != previous_sentence_text:
                         time_mentions = _extract_time_mentions(sentence_text)
                         sentences.append(
-                            {
-                                "sentence_id": f"sent_{sentence_counter:06d}",
-                                "doc_id": document.doc_id,
-                                "source_id": document.source_id,
-                                "sentence_index_in_doc": sentence_index_in_doc,
-                                "text": sentence_text,
-                                "offset_start": absolute_start,
-                                "offset_end": absolute_end,
-                                "normalized_time": [item["normalized"] for item in time_mentions],
-                                "time_mentions": time_mentions,
-                            }
+                            SentenceRecord(
+                                sentence_id=f"sent_{sentence_counter:06d}",
+                                doc_id=document.doc_id,
+                                source_id=document.source_id,
+                                sentence_index_in_doc=sentence_index_in_doc,
+                                text=sentence_text,
+                                offset_start=absolute_start,
+                                offset_end=absolute_end,
+                                normalized_time=[item.normalized for item in time_mentions],
+                                time_mentions=time_mentions,
+                            )
                         )
                         previous_sentence_text = sentence_text
                         sentence_counter += 1
@@ -629,17 +645,17 @@ def build_sentences(documents_path: Path) -> tuple[list[dict[str, Any]], list[di
 
                     time_mentions = _extract_time_mentions(sentence_text)
                     sentences.append(
-                        {
-                            "sentence_id": f"sent_{sentence_counter:06d}",
-                            "doc_id": document.doc_id,
-                            "source_id": document.source_id,
-                            "sentence_index_in_doc": sentence_index_in_doc,
-                            "text": sentence_text,
-                            "offset_start": absolute_start,
-                            "offset_end": absolute_end,
-                            "normalized_time": [item["normalized"] for item in time_mentions],
-                            "time_mentions": time_mentions,
-                        }
+                        SentenceRecord(
+                            sentence_id=f"sent_{sentence_counter:06d}",
+                            doc_id=document.doc_id,
+                            source_id=document.source_id,
+                            sentence_index_in_doc=sentence_index_in_doc,
+                            text=sentence_text,
+                            offset_start=absolute_start,
+                            offset_end=absolute_end,
+                            normalized_time=[item.normalized for item in time_mentions],
+                            time_mentions=time_mentions,
+                        )
                     )
                     previous_sentence_text = sentence_text
                     sentence_counter += 1
@@ -674,7 +690,7 @@ def run_sentence_preprocess(
     strict: bool = False,
 ) -> tuple[int, int]:
     sentences, doc_sentence_counts, errors = build_sentences(documents_path=documents_path)
-    write_json(output_path, sentences)
+    write_json(output_path, [asdict(sentence) for sentence in sentences])
     write_json(
         report_path,
         {

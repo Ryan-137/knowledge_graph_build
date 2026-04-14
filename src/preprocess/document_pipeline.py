@@ -22,11 +22,23 @@ from configs.rules.document import (
     BLOCK_TAGS,
     CONTENT_SELECTORS,
     NOISE_KEYWORDS,
+    NOISE_SELECTORS,
     NOISE_TAGS,
     PROTECTED_CONTENT_TAGS,
+    TAIL_SECTION_TITLES,
 )
 from src.preprocess.shared import utc_now_iso, write_json
 from src.schema.document import SourceRecord
+
+
+LEADING_REFERENCE_PATTERN = re.compile(
+    r"^(?:\[\s*\d+(?:\s*[-–]\s*\d+)?\s*\]\s*)+(?=(?:[A-Z\"'“‘(]|\Z))"
+)
+TRAILING_REFERENCE_PATTERN = re.compile(
+    r"([,.;:!?%)\]}\"'”’])\s*(?:\[\s*\d+(?:\s*[-–]\s*\d+)?\s*\]\s*)+(?=(?:\s|$))"
+)
+PURE_REFERENCE_BLOCK_PATTERN = re.compile(r"^(?:\[\s*\d+(?:\s*[-,–]\s*\d+)?\s*\]\s*)+$")
+TOC_TOKEN_PATTERN = re.compile(r"\b\d+(?:\.\d+)+\b")
 
 
 def _normalize_whitespace(text: str) -> str:
@@ -38,6 +50,10 @@ def _normalize_whitespace(text: str) -> str:
 
 def _normalize_line(text: str) -> str:
     text = _normalize_whitespace(text)
+    text = LEADING_REFERENCE_PATTERN.sub("", text)
+    text = TRAILING_REFERENCE_PATTERN.sub(r"\1", text)
+    text = re.sub(r"\s+([,.;:!?%)\]}\u201d\u2019])", r"\1", text)
+    text = re.sub(r"([(\[{\u201c\u2018])\s+", r"\1", text)
     text = text.strip(" -|")
     return text
 
@@ -84,6 +100,10 @@ def _prune_html_noise(soup: BeautifulSoup) -> None:
     for comment in soup.find_all(string=lambda value: isinstance(value, Comment)):
         comment.extract()
 
+    for selector in NOISE_SELECTORS:
+        for tag in soup.select(selector):
+            tag.decompose()
+
     for tag in soup.find_all(NOISE_TAGS):
         tag.decompose()
 
@@ -117,11 +137,47 @@ def _prune_html_noise(soup: BeautifulSoup) -> None:
             tag.decompose()
 
 
+def _normalize_heading_text(text: str) -> str:
+    text = _normalize_whitespace(text).lower()
+    text = re.sub(r"^[^a-z\u4e00-\u9fff]+|[^a-z\u4e00-\u9fff]+$", "", text)
+    return text
+
+
+def _looks_like_toc_block(text: str) -> bool:
+    toc_token_count = len(TOC_TOKEN_PATTERN.findall(text))
+    if toc_token_count >= 2:
+        punctuation_count = len(re.findall(r"[.!?;:,，。！？；：]", text))
+        return punctuation_count <= 2
+
+    if re.match(r"^\d+(?:\.\d+)*\s+\S", text):
+        return len(text) <= 160 and not re.search(r"[.!?;:,，。！？；：]", text)
+
+    return False
+
+
+def _is_noise_block(text: str) -> bool:
+    if not text:
+        return True
+
+    if PURE_REFERENCE_BLOCK_PATTERN.fullmatch(text):
+        return True
+
+    if _looks_like_toc_block(text):
+        return True
+
+    if text.startswith(("Jump up to:", "Archived from the original", "Retrieved ")):
+        return True
+
+    return False
+
+
 def _extract_blocks(container: Tag) -> list[str]:
     blocks: list[str] = []
     for tag in container.find_all(BLOCK_TAGS):
         text = _normalize_line(tag.get_text(" ", strip=True))
         if not text:
+            continue
+        if _is_noise_block(text):
             continue
         if tag.name == "li" and len(text) < 24:
             continue
@@ -132,6 +188,29 @@ def _extract_blocks(container: Tag) -> list[str]:
         if not deduped or deduped[-1] != text:
             deduped.append(text)
     return deduped
+
+
+def _trim_trailing_reference_sections(blocks: list[str]) -> list[str]:
+    for index, block in enumerate(blocks):
+        normalized_block = _normalize_heading_text(block)
+        if normalized_block not in TAIL_SECTION_TITLES:
+            continue
+
+        if index < 2:
+            continue
+
+        preceding_blocks = blocks[:index]
+        has_meaningful_body = any(
+            len(item) >= 40 or re.search(r"[.!?;:,，。！？；：]", item)
+            for item in preceding_blocks
+        )
+        if not has_meaningful_body:
+            continue
+
+        # 尾部出现参考文献、外链等章节时，后续内容基本不再属于正文。
+        return blocks[:index]
+
+    return blocks
 
 
 def _trim_leading_blocks_for_structured_article(blocks: list[str]) -> list[str]:
@@ -186,6 +265,7 @@ def _extract_html_text(file_path: Path) -> str:
     best_score = -1
     for candidate in unique_candidates:
         blocks = _extract_blocks(candidate)
+        blocks = _trim_trailing_reference_sections(blocks)
         blocks = _trim_leading_blocks_for_structured_article(blocks)
         score = _score_blocks(blocks)
         if score > best_score:
